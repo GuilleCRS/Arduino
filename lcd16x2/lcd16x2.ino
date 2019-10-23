@@ -1,0 +1,92 @@
+/*
+  LiquidCrystal Library - Hello World
+
+/*
+  LiquidCrystal Library - scrollDisplayLeft() and scrollDisplayRight()
+
+ Demonstrates the use a 16x2 LCD display.  The LiquidCrystal
+ library works with all LCD displays that are compatible with the
+ Hitachi HD44780 driver. There are many of them out there, and you
+ can usually tell them by the 16-pin interface.
+
+ This sketch prints "Hello World!" to the LCD and uses the
+ scrollDisplayLeft() and scrollDisplayRight() methods to scroll
+ the text.
+
+  The circuit:
+ * LCD RS pin to digital pin 12
+ * LCD Enable pin to digital pin 11
+ * LCD D4 pin to digital pin 5
+ * LCD D5 pin to digital pin 4
+ * LCD D6 pin to digital pin 3
+ * LCD D7 pin to digital pin 2
+ * LCD R/W pin to ground
+ * 10K resistor:
+ * ends to +5V and ground
+ * wiper to LCD VO pin (pin 3)
+
+ Library originally added 18 Apr 2008
+ by David A. Mellis
+ library modified 5 Jul 2009
+ by Limor Fried (http://www.ladyada.net)
+ example added 9 Jul 2009
+ by Tom Igoe
+ modified 22 Nov 2010
+ by Tom Igoe
+ modified 7 Nov 2016
+ by Arturo Guadalupi
+
+ This example code is in the public domain.
+
+ http://www.arduino.cc/en/Tutorial/LiquidCrystalScroll
+
+*/
+
+// include the library code:
+#include <LiquidCrystal.h>
+
+// initialize the library by associating any needed LCD interface pin
+// with the arduino pin number it is connected to
+const int rs = 12, en = 11, d4 = 5, d5 = 4, d6 = 3, d7 = 2;
+String mensaje="Hola mi nombre es guillermo cruz y estoy haciendo este trabajo para la clase de sistemas programables, el dia de hoy hare esto";
+LiquidCrystal lcd(rs, en, d4, d5, d6, d7);
+
+void setup() {
+  // set up the LCD's number of columns and rows:
+  lcd.begin(16, 2);
+  // Print a message to the LCD.
+
+}
+
+void loop() {
+boolean bandera=true;
+int tamBuffer=36;//Es 40 pero para dejar espacio entre letras
+
+
+    lcd.print(mensaje.substring(0,16));
+    delay(500);
+    lcd.clear();
+    for(int i=0;i<=mensaje.length();i++){
+      lcd.print(mensaje.charAt(i));
+      if(i>16){
+        delay(300);
+        lcd.scrollDisplayLeft();
+      }
+
+      if(i>=tamBuffer){
+        if(bandera){
+          lcd.clear();
+          bandera=false;
+          continue;
+        }
+      int rem=i%36;
+        if(rem==0){
+          bandera=true;
+        }
+      }
+  }
+  delay(700);
+  lcd.clear();
+
+
+}
